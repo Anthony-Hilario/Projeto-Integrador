@@ -23,14 +23,7 @@ export default function Index() {
           <Button title="Log de Atividade"/>
         </Link>
       </TouchableOpacity>
-    </View>
-
-    <TouchableOpacity>
-      <Link href={'/login'}>
-        <Text>Pagina login</Text>
-      </Link>
-    </TouchableOpacity>
-    
+    </View>    
 
     <StatusBar barStyle={'dark-content'} />
   </View>
