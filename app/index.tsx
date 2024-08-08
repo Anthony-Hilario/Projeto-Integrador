@@ -1,35 +1,39 @@
-import { StatusBar, Text, View, Button, Image, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import { StatusBar, Text, View, Button, TouchableOpacity, TextInput } from "react-native";
 import { styles } from "@/styles/styles";
+import { useState } from "react";
+import { useRouter } from "expo-router";
 
-export default function Index() {
+
+export default function Login() {
+    const [user, setUser] = useState('')
+    const [senha, setSenha] = useState('')
+    const router = useRouter();
+    
+        function login() {
+            if(user === 'murillo' && senha === '123'){
+                console.log("logado")
+                router.push('/home')
+            }
+            else{
+                console.log("Não")
+            }
+        }
+    
+
   return (
   <View style={styles.container}>
-
-    <View style={styles.row}>
-      <Text>SafeDoor</Text>
-      <Image style={styles.img} source={require('@/assets/images/escudo.png')}/>
-    </View>
-
-    <View style={styles.row}>
-      <TouchableOpacity style={styles.button}>
-        <Link href={"/pag2"}>
-          <Button title="Entrar com QR Code"/>
-      </Link>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={styles.button}>
-        <Link href={"/logPage"}>
-          <Button title="Log de Atividade"/>
-        </Link>
-      </TouchableOpacity>
-    </View>
-
-    <TouchableOpacity>
-      <Link href={'/login'}>
-        <Text>Pagina login</Text>
-      </Link>
+    <Text>Usuário</Text>
+    <TouchableOpacity style={styles.touchable}>
+        <TextInput placeholder="UserExample" style={styles.TextInput} value={user} onChangeText={setUser}/>
     </TouchableOpacity>
+
+    <Text>Senha</Text>
+    <TouchableOpacity style={styles.touchable}>
+        <TextInput placeholder="******" secureTextEntry={true} value={senha} onChangeText={setSenha} style={styles.TextInput}/>
+    </TouchableOpacity>
+
+    <Button title="Entrar" onPress={login}/>
+    <Button title="Esqueci minha Senha" onPress={() => console.log("Recuperar senha")}/>
     
 
     <StatusBar barStyle={'dark-content'} />
