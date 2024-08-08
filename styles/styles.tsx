@@ -6,17 +6,25 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+
+    TextInput:{
+        color: '#FFFFFF'
+    },
+
+    touchable: {
+        backgroundColor: '#000000'
+    },
+
     qrcode: {
         width: 240,
         height: 240,
     },
+
     img: {
         width: 20,
         height: 20,
     },
-    header: {
-        flexDirection: 'row'
-    },
+
     row: {
         flexDirection: 'row',
     },

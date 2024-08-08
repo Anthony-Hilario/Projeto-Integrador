@@ -6,7 +6,7 @@ export default function Index() {
   return (
   <View style={styles.container}>
 
-    <View style={styles.header}>
+    <View style={styles.row}>
       <Text>SafeDoor</Text>
       <Image style={styles.img} source={require('@/assets/images/escudo.png')}/>
     </View>
@@ -17,9 +17,7 @@ export default function Index() {
           <Button title="Entrar com QR Code"/>
       </Link>
       </TouchableOpacity>
-    </View>
-
-    <View style={styles.row}>
+      
       <TouchableOpacity style={styles.button}>
         <Link href={"/logPage"}>
           <Button title="Log de Atividade"/>
@@ -27,6 +25,11 @@ export default function Index() {
       </TouchableOpacity>
     </View>
 
+    <TouchableOpacity>
+      <Link href={'/login'}>
+        <Text>Pagina login</Text>
+      </Link>
+    </TouchableOpacity>
     
 
     <StatusBar barStyle={'dark-content'} />
