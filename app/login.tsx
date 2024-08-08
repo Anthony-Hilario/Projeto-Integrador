@@ -1,17 +1,18 @@
 import { StatusBar, Text, View, Button, TouchableOpacity, TextInput } from "react-native";
 import { styles } from "@/styles/styles";
 import { useState } from "react";
-import { useNavigation } from '@react-navigation/native';
+import { useRouter } from "expo-router";
+
 
 export default function Login() {
     const [user, setUser] = useState('')
     const [senha, setSenha] = useState('')
-    const navigation = useNavigation();
+    const router = useRouter();
     
         function login() {
             if(user === 'murillo' && senha === '123'){
                 console.log("logado")
-                navigation.navigate("index")
+                router.push('/')
             }
             else{
                 console.log("Não")
