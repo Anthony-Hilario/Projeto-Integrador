@@ -11,19 +11,31 @@ export default function Index() {
       <Image style={styles.img} source={require('@/assets/images/escudo.png')}/>
     </View>
 
-    <View style={styles.row}>
-      <TouchableOpacity style={styles.button}>
-        <Link href={"/pag2"}>
-          <Button title="Entrar com QR Code"/>
-      </Link>
-      </TouchableOpacity>
-      
-      <TouchableOpacity style={styles.button}>
-        <Link href={"/logPage"}>
-          <Button title="Log de Atividade"/>
-        </Link>
-      </TouchableOpacity>
-    </View>    
+    <View style={styles.footer}>
+     <Link href={'/home'} style={styles.btnBack} >
+       <TouchableOpacity>
+        <Image source={require('@/assets/images/home.png')} />
+       </TouchableOpacity>
+     </Link>
+     
+     <Link href={'/qrcode'}>
+        <TouchableOpacity>
+          <Image source={require('@/assets/images/img-qrcode.png')} />
+        </TouchableOpacity>
+     </Link>
+
+     <Link href={'/logPage'}>
+        <TouchableOpacity>
+          <Image source={require('@/assets/images/logs.png')} />
+        </TouchableOpacity>
+     </Link>
+
+     <Link href={'/configs'}>
+        <TouchableOpacity>
+          <Image source={require('@/assets/images/settings.png')} />
+        </TouchableOpacity>
+     </Link>
+    </View>
 
     <StatusBar barStyle={'dark-content'} />
   </View>

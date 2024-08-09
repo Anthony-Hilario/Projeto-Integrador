@@ -1,6 +1,7 @@
-import { Button, StatusBar, Text, View, FlatList, StyleSheet } from "react-native";
+import { Button, StatusBar, Text, View, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import React from "react";
+import { styles } from "@/styles/styles";
 
 const logs = [
     { id: '1', horario: '08:00', porta: '1234', usuario: 'João' },
@@ -18,7 +19,7 @@ const renderItem = ({ item }) => (
 export default function Page2() {
     
   return (
-    <View style={styles.container}>
+    <View style={styles.containerLog}>
      <Text>Log de Atividades</Text>
 
      <View style={styles.header}>
@@ -32,49 +33,34 @@ export default function Page2() {
         keyExtractor={(item) => item.id}
       />
 
-
-     <Link href={'/'} style={styles.btnBack} >
-       <Button title="Voltar"/>
+    <View style={styles.footer}>
+     <Link href={'/home'} style={styles.btnBack} >
+       <TouchableOpacity>
+        <Image source={require('@/assets/images/home.png')} />
+       </TouchableOpacity>
      </Link>
+     
+     <Link href={'/qrcode'}>
+        <TouchableOpacity>
+          <Image source={require('@/assets/images/img-qrcode.png')} />
+        </TouchableOpacity>
+     </Link>
+
+     <Link href={'/logPage'}>
+        <TouchableOpacity>
+          <Image source={require('@/assets/images/logs.png')} />
+        </TouchableOpacity>
+     </Link>
+
+     <Link href={'/configs'}>
+        <TouchableOpacity>
+          <Image source={require('@/assets/images/settings.png')} />
+        </TouchableOpacity>
+     </Link>
+    </View>
+
 
       <StatusBar barStyle={'dark-content'} />
     </View>
   );
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#f8f9fa',
-  },
-  header: {
-    flexDirection: 'row',
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  headerText: {
-    flex: 1,
-    color: '#fff',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  cell: {
-    flex: 1,
-    textAlign: 'center',
-  },
-  btnBack: {
-    textAlign: 'center'
-  }
-});
