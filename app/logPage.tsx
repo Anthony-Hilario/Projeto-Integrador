@@ -33,32 +33,6 @@ export default function Page2() {
         keyExtractor={(item) => item.id}
       />
 
-    <View style={styles.footer}>
-     <Link href={'/home'} style={styles.btnBack} >
-       <TouchableOpacity>
-        <Image source={require('@/assets/images/home.png')} />
-       </TouchableOpacity>
-     </Link>
-     
-     <Link href={'/qrcode'}>
-        <TouchableOpacity>
-          <Image source={require('@/assets/images/img-qrcode.png')} />
-        </TouchableOpacity>
-     </Link>
-
-     <Link href={'/logPage'}>
-        <TouchableOpacity>
-          <Image source={require('@/assets/images/logs.png')} />
-        </TouchableOpacity>
-     </Link>
-
-     <Link href={'/configs'}>
-        <TouchableOpacity>
-          <Image source={require('@/assets/images/settings.png')} />
-        </TouchableOpacity>
-     </Link>
-    </View>
-
 
       <StatusBar barStyle={'dark-content'} />
     </View>
