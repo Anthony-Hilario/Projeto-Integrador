@@ -1,37 +1,64 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import Index from './index';
+import LogPageScreen from './logPage';
+import QRCodeScreen from './qrcode';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+function AppTabs() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          switch (route.name) {
+            case 'home':
+              iconName = 'home';
+              break;
+            case 'logPage':
+              iconName = 'file-text';
+              break;
+            case 'qrcode':
+              iconName = 'qrcode';
+              break;
+            default:
+              iconName = 'gear';
+          }
+
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen name='index' component={Index} options={{ title: 'Home' }} />
+      <Tab.Screen name="qrcode" component={QRCodeScreen} options={{ title: 'QR Code' }} />
+      <Tab.Screen name="logPage" component={LogPageScreen} options={{ title: 'Logs' }} />
+    </Tab.Navigator>
+  );
+}
+
+function MainStack() {
+  return (
+    <Stack.Navigator initialRouteName="Index">
+      <Stack.Screen 
+        name="Main" 
+        component={AppTabs}
+        options={{ headerShown: false }} 
+      />
+    </Stack.Navigator>
+  );
+}
+
+export default function Layout() {
+  return (
+    <NavigationContainer independent={true}>
+      <MainStack />
+    </NavigationContainer>
   );
 }
