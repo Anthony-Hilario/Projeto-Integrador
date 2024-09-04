@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Index from './index';
 import LogPageScreen from './logPage';
 import QRCodeScreen from './qrcode';
+import Configs from './configs';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,6 +29,9 @@ function AppTabs() {
             case 'qrcode':
               iconName = 'qrcode';
               break;
+            case 'config':
+              iconName = 'gear';
+              break;
             default:
               iconName = 'gear';
           }
@@ -36,9 +40,10 @@ function AppTabs() {
         },
       })}
     >
-      <Tab.Screen name='index' component={Index} options={{ title: 'Home' }} />
+      <Tab.Screen name='home' component={Index} options={{ title: 'Home' }} />
       <Tab.Screen name="qrcode" component={QRCodeScreen} options={{ title: 'QR Code' }} />
       <Tab.Screen name="logPage" component={LogPageScreen} options={{ title: 'Logs' }} />
+      <Tab.Screen name='configs'component={Configs} options={{ title: 'Config' }} />
     </Tab.Navigator>
   );
 }
