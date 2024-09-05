@@ -1,5 +1,4 @@
-import { Button, StatusBar, Text, View, FlatList, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import { StatusBar, Text, View, FlatList } from "react-native";
 import React from "react";
 import { styles } from "@/styles/styles";
 

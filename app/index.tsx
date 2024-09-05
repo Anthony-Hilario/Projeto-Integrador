@@ -1,40 +1,70 @@
-import { StatusBar, Text, View, Button, TouchableOpacity, TextInput } from "react-native";
+import { StatusBar, Text, View, Image, Button } from "react-native";
 import { styles } from "@/styles/styles";
-import { useState } from "react";
-import { useRouter } from "expo-router";
+import React, { useEffect, useState } from 'react';
+
+const SERVER_URL = 'ws://localhost:3000'; 
+
+export default function Index() {
+
+  const [ws, setWs] = useState(null);
+  const [message, setMessage] = useState('');
 
 
-export default function Login() {
-    const [user, setUser] = useState('')
-    const [senha, setSenha] = useState('')
-    const router = useRouter();
-    
-        function login() {
-            if(user === 'murillo' && senha === '123'){
-                console.log("logado")
-                router.push('/home')
-            }
-            else{
-                console.log("Não")
-            }
-        }
-    
+  useEffect(() => {
+    // Conecta ao WebSocket do servidor
+    const socket = new WebSocket(SERVER_URL);
+
+    socket.onopen = () => {
+      console.log('Conectado ao WebSocket do servidor');
+    };
+
+    socket.onmessage = (event) => {
+      console.log('Mensagem recebida do servidor:', event.data);
+      setMessage(event.data); // Armazena a mensagem recebida para exibição
+    };
+
+    socket.onerror = (error) => {
+      console.error('Erro no WebSocket:', error.message);
+    };
+
+    socket.onclose = (event) => {
+      console.log('WebSocket desconectado:', event);
+    };
+
+    setWs(socket);
+
+    // Limpa a conexão WebSocket ao desmontar o componente
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, []);
+
+  const enviarLiberado = () => {
+    if (ws) {
+      ws.send('Liberado');
+    }
+  };
+
+  const enviarBloqueado = () => {
+    if (ws) {
+      ws.send('Bloqueado');
+    }
+  };
 
   return (
   <View style={styles.container}>
-    <Text>Usuário</Text>
-    <TouchableOpacity style={styles.touchable}>
-        <TextInput placeholder="UserExample" style={styles.TextInput} value={user} onChangeText={setUser}/>
-    </TouchableOpacity>
 
-    <Text>Senha</Text>
-    <TouchableOpacity style={styles.touchable}>
-        <TextInput placeholder="******" secureTextEntry={true} value={senha} onChangeText={setSenha} style={styles.TextInput}/>
-    </TouchableOpacity>
+    <View style={styles.row}>
+      <Text>SafeDoor</Text>
+      <Image style={styles.img} source={require('@/assets/images/escudo.png')}/>
+    </View>
 
-    <Button title="Entrar" onPress={login}/>
-    <Button title="Esqueci minha Senha" onPress={() => console.log("Recuperar senha")}/>
-    
+    <View style={styles.row}>
+      <Button title="Liberar" onPress={enviarLiberado}/>
+      <Button title="Bloquear" onPress={enviarBloqueado}/>
+    </View>
 
     <StatusBar barStyle={'dark-content'} />
   </View>
